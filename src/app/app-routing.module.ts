@@ -3,14 +3,34 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'places',
     pathMatch: 'full'
   },
+ 
+  {
+    path: 'places',
+    children: [
+      {
+        path: "",
+        loadChildren: () => import('./places/places.module').then( m => m.PlacesPageModule)
+      },
+      {
+        path: ":placeId",
+        loadChildren: () =>
+        /**import("./places/place-detail/PlaceDetailPage.module").then (m => m.PlaceDetailPageModule/
+          )
+      }
+    ]
+  },
+  {
+    path: 'new-place',
+    loadChildren: () => import('./places/place-add').then( m => m.PlaceDetailPageModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module/place-add.module').then( m => m.HomePageModule)
+  }
 ];
 
 @NgModule({
@@ -20,3 +40,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
